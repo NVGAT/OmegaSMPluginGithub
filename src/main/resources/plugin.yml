@@ -4,3 +4,12 @@ main: com.notverygoodatthis.omegasmplugin.OmegaSMPlugin
 api-version: 1.19
 authors: [ NotVeryGoodAtThis ]
 description: The official Omega SMP plugin
+
+commands:
+  omegarevive:
+    description: Revive a banned player using a revival item
+    usage: /<command>
+
+  deposit:
+    description: Deposit some of your lives in an item form
+    usage: /<command>
