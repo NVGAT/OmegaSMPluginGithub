@@ -30,6 +30,7 @@ public final class OmegaSMPlugin extends JavaPlugin implements Listener {
     public static String LIFE_ITEM_NAME = "§a§lLife";
     public static String RESURRECTION_FRAGMENT_NAME = "§b§lRessurection fragment";
     public static String REVIVAL_ITEM_NAME = "§4§oRevive item";
+    public static String SPEED_ITEM_NAME = "§f§lSpeed";
     ArrayList<String> availableItems = new ArrayList<>();
 
     void printWelcome() {
@@ -56,6 +57,7 @@ public final class OmegaSMPlugin extends JavaPlugin implements Listener {
 
     void registerRecipes() {
         Bukkit.addRecipe(revivalItemRecipe());
+        Bukkit.addRecipe(speedRecipe());
     }
 
     void registerCommands() {
@@ -85,10 +87,19 @@ public final class OmegaSMPlugin extends JavaPlugin implements Listener {
 
     public static ItemStack getRevivalItem(int amount) {
         ItemStack revivalItem = SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTQ2MDdhZThhNmY5Mzc0MmU4ZWIxNmEwZjg2MjY1OWUzMDg3NjEwMTlhMzk3NzIyYzFhZmU4NGIxNzlkMWZhMiJ9fX0=");
+        revivalItem.setAmount(amount);
         ItemMeta meta = revivalItem.getItemMeta();
         meta.displayName(Component.text(REVIVAL_ITEM_NAME));
         revivalItem.setItemMeta(meta);
         return revivalItem;
+    }
+
+    public static ItemStack getSpeed(int amount) {
+        ItemStack speed = new ItemStack(Material.SUGAR, amount);
+        ItemMeta meta = speed.getItemMeta();
+        meta.displayName(Component.text(SPEED_ITEM_NAME));
+        speed.setItemMeta(meta);
+        return speed;
     }
 
     @EventHandler
@@ -195,6 +206,16 @@ public final class OmegaSMPlugin extends JavaPlugin implements Listener {
         recipe.setIngredient('T', Material.TOTEM_OF_UNDYING);
         recipe.setIngredient('D', Material.DIAMOND_BLOCK);
         recipe.setIngredient('R', new RecipeChoice.ExactChoice(getRessurectionFragment(1)));
+        return recipe;
+    }
+
+    public ShapedRecipe speedRecipe() {
+        ItemStack speed = getSpeed(1);
+        NamespacedKey key = new NamespacedKey(this, "sugar");
+        ShapedRecipe recipe = new ShapedRecipe(key, speed);
+        recipe.shape("DDD", "DSD", "DDD");
+        recipe.setIngredient('D', Material.DIAMOND_BLOCK);
+        recipe.setIngredient('S', Material.SUGAR);
         return recipe;
     }
 }
