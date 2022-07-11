@@ -1,0 +1,6 @@
+name: OmegaSMPlugin
+version: '${project.version}'
+main: com.notverygoodatthis.omegasmplugin.OmegaSMPlugin
+api-version: 1.19
+authors: [ NotVeryGoodAtThis ]
+description: The official Omega SMP plugin
