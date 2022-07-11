@@ -5,11 +5,13 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -59,7 +61,9 @@ public final class OmegaSMPlugin extends JavaPlugin implements Listener {
         getCommand("omegarevive").setExecutor(new RevivalCommand());
         getCommand("omegarevive").setTabCompleter(new RevivalCommand());
         getCommand("deposit").setExecutor(new DepositCommand());
-        getCommand("omegareset").setExecutor(new OmegaSetCommand());
+        getCommand("omegareset").setExecutor(new OmegaResetCommand());
+        getCommand("omegaset").setExecutor(new OmegaSetCommand());
+        getCommand("omegakit").setExecutor(new OmegaKitCommand());
     }
 
     public static ItemStack getLife(int amount) {
@@ -141,6 +145,13 @@ public final class OmegaSMPlugin extends JavaPlugin implements Listener {
             }
         } else {
             player.setStatistic(Statistic.DEATHS, player.getStatistic(Statistic.DEATHS) - 1);
+        }
+    }
+
+    @EventHandler
+    public void onEntityDeath(EntityDeathEvent e) {
+        if(e.getEntity() instanceof Creeper) {
+            e.getEntity().getWorld().dropItemNaturally(e.getEntity().getLocation(), new ItemStack(Material.GUNPOWDER, 5));
         }
     }
 

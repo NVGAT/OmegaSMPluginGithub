@@ -18,3 +18,13 @@ commands:
     description: Reset a player's life count (OPERATOR-ONLY)
     usage: /<command>
     permission: omegasmp.admin
+
+  omegaset:
+    description: Set a player's life count (OPERATOR-ONLY)
+    usage: /<command>
+    permission: omegasmp.admin
+
+  omegakit:
+    description: Kits you out full Omega SMP style!
+    usage: /<command>
+    permission: omegasmp.admin
