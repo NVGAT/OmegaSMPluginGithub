@@ -59,6 +59,7 @@ public final class OmegaSMPlugin extends JavaPlugin implements Listener {
         getCommand("omegarevive").setExecutor(new RevivalCommand());
         getCommand("omegarevive").setTabCompleter(new RevivalCommand());
         getCommand("deposit").setExecutor(new DepositCommand());
+        getCommand("omegareset").setExecutor(new OmegaSetCommand());
     }
 
     public static ItemStack getLife(int amount) {

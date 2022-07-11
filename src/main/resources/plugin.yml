@@ -13,3 +13,8 @@ commands:
   deposit:
     description: Deposit some of your lives in an item form
     usage: /<command>
+
+  omegareset:
+    description: Reset a player's life count (OPERATOR-ONLY)
+    usage: /<command>
+    permission: omegasmp.admin
