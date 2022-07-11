@@ -14,6 +14,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapedRecipe;
@@ -95,6 +96,8 @@ public final class OmegaSMPlugin extends JavaPlugin implements Listener {
         Player player = e.getPlayer();
         Entity killer = player.getKiller();
         if(killer instanceof Player) {
+            int playerLives = MAX_LIVES - player.getStatistic(Statistic.DEATHS);
+            player.playerListName(Component.text("[" + playerLives + "] " + player.getName()));
             if(player.getStatistic(Statistic.DEATHS) > MAX_LIVES) {
                 player.getWorld().dropItemNaturally(player.getLocation(), getRessurectionFragment(1));
                 getServer().broadcast(Component.text(player.getName() + " has lost all of their lives. They will be banned until someone revives them."));
@@ -175,6 +178,13 @@ public final class OmegaSMPlugin extends JavaPlugin implements Listener {
         getLogger().info("| Disabling the Omega SMP plugin");
         getLogger().info("| Version " + file.getVersion());
         getLogger().info("|-------------------------------");
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent e) {
+        Player player = e.getPlayer();
+        int playerLives = MAX_LIVES - player.getStatistic(Statistic.DEATHS);
+        player.playerListName(Component.text("[" + playerLives + "] " + player.getName()));
     }
 
     public ShapedRecipe revivalItemRecipe() {
