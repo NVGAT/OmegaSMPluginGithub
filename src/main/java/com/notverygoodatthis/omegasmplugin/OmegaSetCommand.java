@@ -21,7 +21,9 @@ public class OmegaSetCommand implements CommandExecutor, TabCompleter {
         try {
             int newLifeInput = Integer.parseInt(args[1]);
             affectedPlayer.setStatistic(Statistic.DEATHS, OmegaSMPlugin.MAX_LIVES - newLifeInput);
-            if(affectedPlayer.getStatistic(Statistic.DEATHS) > OmegaSMPlugin.MAX_LIVES) {
+            OmegaSMPlugin.updateTablistForPlayer(affectedPlayer);
+            sender.sendMessage("Successfully set the lives of " + affectedPlayer.getName() + " to " + newLifeInput);
+            if(affectedPlayer.getStatistic(Statistic.DEATHS) > OmegaSMPlugin.MAX_LIVES - 1) {
                 Bukkit.getBanList(BanList.Type.NAME).pardon(affectedPlayer.getName());
             }
             return true;

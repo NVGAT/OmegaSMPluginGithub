@@ -1,5 +1,6 @@
 package com.notverygoodatthis.omegasmplugin;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Statistic;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,9 +16,12 @@ public class DepositCommand implements CommandExecutor {
             Player playerSender = (Player) sender;
             try {
                 int depositAmount = Integer.parseInt(args[0]);
-                int playerLives = playerSender.getStatistic(Statistic.DEATHS) - OmegaSMPlugin.MAX_LIVES;
+                int playerLives = OmegaSMPlugin.MAX_LIVES - playerSender.getStatistic(Statistic.DEATHS);
+                Bukkit.getLogger().info("player lives: " + (playerLives - 1) + "\ndeposit amount: " + depositAmount);
                 if(playerLives - depositAmount > 0) {
                     playerSender.getInventory().addItem(OmegaSMPlugin.getLife(depositAmount));
+                    playerSender.setStatistic(Statistic.DEATHS, playerSender.getStatistic(Statistic.DEATHS) + depositAmount);
+                    OmegaSMPlugin.updateTablistForPlayer(playerSender);
                 } else {
                     playerSender.sendMessage("You don't have this many lives to deposit");
                 }

@@ -13,6 +13,7 @@ public class OmegaResetCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         Player affectedPlayer = Bukkit.getPlayerExact(args[0]);
         affectedPlayer.setStatistic(Statistic.DEATHS, 0);
+        OmegaSMPlugin.updateTablistForPlayer(affectedPlayer);
         return false;
     }
 }
