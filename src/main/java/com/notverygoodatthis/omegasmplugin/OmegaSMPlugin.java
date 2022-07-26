@@ -51,14 +51,14 @@ public final class OmegaSMPlugin extends JavaPlugin implements Listener {
     public static String RESURRECTION_FRAGMENT_NAME = "§b§lRessurection fragment";
     public static String REVIVAL_ITEM_NAME = "§4§oRevive item";
     public static String SPEED_ITEM_NAME = "§f§lSpeed";
-    ArrayList<String> availableItems = new ArrayList<>();
+    private ArrayList<String> availableItems = new ArrayList<>();
 
     void printWelcome() {
         //Prints a welcome message with the version of the plugin
         PluginDescriptionFile file = this.getDescription();
         getLogger().info("|------------------------------");
         getLogger().info("| Enabling the Omega SMP plugin");
-        getLogger().info("| Version " + file.getVersion());
+        getLogger().info("| Version: " + file.getVersion());
         getLogger().info("|------------------------------");
     }
 
@@ -128,15 +128,6 @@ public final class OmegaSMPlugin extends JavaPlugin implements Listener {
         meta.setDisplayName(SPEED_ITEM_NAME);
         speed.setItemMeta(meta);
         return speed;
-    }
-
-    //Getter for legacy revival heads
-    public static ItemStack getLegacyRevival(int amount) {
-        ItemStack head = SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTQ2MDdhZThhNmY5Mzc0MmU4ZWIxNmEwZjg2MjY1OWUzMDg3NjEwMTlhMzk3NzIyYzFhZmU4NGIxNzlkMWZhMiJ9fX0=");
-        ItemMeta meta = head.getItemMeta();
-        meta.setDisplayName(REVIVAL_ITEM_NAME);
-        head.setItemMeta(meta);
-        return head;
     }
 
     //Updates a specific player's name in the tab list based on how many lives they have

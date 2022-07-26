@@ -1,7 +1,5 @@
 package com.notverygoodatthis.omegasmplugin;
 
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
 import org.bukkit.*;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -10,7 +8,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.BitSet;
 import java.util.List;
 
 public class RevivalCommand implements CommandExecutor, TabCompleter {
@@ -20,9 +17,7 @@ public class RevivalCommand implements CommandExecutor, TabCompleter {
             Player playerSender = (Player) sender;
             try {
                 ItemStack heldItem = playerSender.getInventory().getItemInMainHand();
-                TextComponent textComponent = (TextComponent) heldItem.getItemMeta().displayName();
-                Bukkit.getLogger().info(textComponent.content());
-                if(heldItem.getType() == OmegaSMPlugin.getRevivalItem(1).getType() && textComponent.content().equals(OmegaSMPlugin.REVIVAL_ITEM_NAME)) {
+                if(heldItem.getType() == OmegaSMPlugin.getRevivalItem(1).getType()) {
                     OfflinePlayer playerToRevive = Bukkit.getOfflinePlayer(args[0]);
                     if(playerToRevive.isBanned() && Bukkit.getBanList(BanList.Type.NAME).getBanEntry(playerToRevive.getName()).getReason().contains("Thank you for playing on Omega SMP")) {
                         Bukkit.getBanList(BanList.Type.NAME).pardon(playerToRevive.getName());
@@ -33,19 +28,6 @@ public class RevivalCommand implements CommandExecutor, TabCompleter {
                     } else {
                         playerSender.sendMessage("That player was never banned.");
                     }
-                }
-                else if(heldItem.getType() == OmegaSMPlugin.getLegacyRevival(1).getType() && heldItem.getItemMeta().getDisplayName().equals(OmegaSMPlugin.getLegacyRevival(1).getItemMeta().getDisplayName())) {
-                    OfflinePlayer playerToRevive = Bukkit.getOfflinePlayer(args[0]);
-                    if(playerToRevive.isBanned() && Bukkit.getBanList(BanList.Type.NAME).getBanEntry(playerToRevive.getName()).getReason().contains("Thank you for playing on Omega SMP")) {
-                        Bukkit.getBanList(BanList.Type.NAME).pardon(playerToRevive.getName());
-                        playerSender.setStatistic(Statistic.DEATHS, 0);
-                        playerSender.sendMessage(ChatColor.AQUA + "You have successfully revived " + playerToRevive.getName() +
-                                ". If there was a typo or you think there was a bug, contact NotVeryGoodAtThis#8575 on Discord.");
-                        playerSender.getInventory().getItemInMainHand().setAmount(heldItem.getAmount() - 1);
-                    }
-                }
-                else {
-                    playerSender.sendMessage(ChatColor.AQUA + "Hold a revival item in your main hand to revive someone.");
                 }
             } catch(CommandException e) {
                 playerSender.sendMessage(ChatColor.AQUA + "Hold a revival item in your main hand to revive someone.");
